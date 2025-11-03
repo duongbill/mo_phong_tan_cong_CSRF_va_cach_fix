@@ -64,7 +64,7 @@ app.use(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: "lax", // Fix 2: bảo vệ CSRF, cân bằng bảo mật và trải nghiệm
     },
   })
 );
@@ -89,6 +89,16 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.moment = moment;
+  // Luôn sinh CSRF token nếu chưa có
+  if (!req.session.csrfToken) {
+    req.session.csrfToken = Math.random().toString(36).substring(2, 15);
+  }
+  // Đảm bảo client luôn nhận được CSRF token qua cookie
+  res.cookie("XSRF-TOKEN", req.session.csrfToken, {
+    httpOnly: false,
+    sameSite: "Lax",
+    secure: process.env.NODE_ENV === "production",
+  });
   next();
 });
 

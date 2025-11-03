@@ -19,8 +19,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Fix 3: Yêu cầu X-CSRF-Token cho các request thay đổi dữ liệu
+function requireCsrfToken(req, res, next) {
+  const token = req.headers["x-csrf-token"];
+  if (!token || token !== req.session.csrfToken) {
+    return res.status(403).json({ error: "Invalid or missing CSRF token" });
+  }
+  next();
+}
+
 // Create new review
-router.post("/", isAuthenticated, async (req, res) => {
+router.post("/", isAuthenticated, requireCsrfToken, async (req, res) => {
   try {
     const { content, rating } = req.body;
     const review = await Review.create({
@@ -42,30 +51,35 @@ router.post("/", isAuthenticated, async (req, res) => {
 });
 
 // Like/Unlike review
-router.post("/:id/like", isAuthenticated, async (req, res) => {
-  try {
-    const review = await Review.findById(req.params.id);
-    if (!review) {
-      return res.status(404).json({ error: "Review not found" });
-    }
+router.post(
+  "/:id/like",
+  isAuthenticated,
+  requireCsrfToken,
+  async (req, res) => {
+    try {
+      const review = await Review.findById(req.params.id);
+      if (!review) {
+        return res.status(404).json({ error: "Review not found" });
+      }
 
-    const likeIndex = review.likes.indexOf(req.session.userId);
-    if (likeIndex === -1) {
-      review.likes.push(req.session.userId);
-    } else {
-      review.likes.splice(likeIndex, 1);
-    }
+      const likeIndex = review.likes.indexOf(req.session.userId);
+      if (likeIndex === -1) {
+        review.likes.push(req.session.userId);
+      } else {
+        review.likes.splice(likeIndex, 1);
+      }
 
-    await review.save();
-    res.json({ likes: review.likes });
-  } catch (err) {
-    console.error("Error processing like:", err);
-    res.status(500).json({ error: "Server error" });
+      await review.save();
+      res.json({ likes: review.likes });
+    } catch (err) {
+      console.error("Error processing like:", err);
+      res.status(500).json({ error: "Server error" });
+    }
   }
-});
+);
 
 // Delete review
-router.delete("/:id", isAuthenticated, async (req, res) => {
+router.delete("/:id", isAuthenticated, requireCsrfToken, async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
     if (!review) {

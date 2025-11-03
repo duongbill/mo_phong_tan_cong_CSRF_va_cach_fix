@@ -15,8 +15,17 @@ router.get("/me", async (req, res) => {
   res.json({ user: null });
 });
 
+// Fix 3: Yêu cầu X-CSRF-Token cho các request thay đổi dữ liệu
+function requireCsrfToken(req, res, next) {
+  const token = req.headers["x-csrf-token"];
+  if (!token || token !== req.session.csrfToken) {
+    return res.status(403).json({ error: "Invalid or missing CSRF token" });
+  }
+  next();
+}
+
 // Login
-router.post("/login", async (req, res) => {
+router.post("/login", requireCsrfToken, async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -43,7 +52,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Register
-router.post("/register", async (req, res) => {
+router.post("/register", requireCsrfToken, async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -94,7 +103,7 @@ router.post("/register", async (req, res) => {
 });
 
 // Logout
-router.post("/logout", (req, res) => {
+router.post("/logout", requireCsrfToken, (req, res) => {
   req.session.destroy();
   res.json({ message: "Logged out successfully" });
 });

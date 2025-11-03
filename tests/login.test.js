@@ -22,8 +22,18 @@ describe("API /auth/login", () => {
   });
 
   it("Đăng nhập thành công với username và password đúng", async () => {
+    // Lấy CSRF token từ cookie
+    const getRes = await request(app).get("/api/auth/me");
+    const cookies = getRes.headers["set-cookie"];
+    const xsrfCookie = cookies.find((c) => c.startsWith("XSRF-TOKEN"));
+    const csrfToken = xsrfCookie
+      ? xsrfCookie.split(";")[0].split("=")[1]
+      : null;
+
     const res = await request(app)
       .post("/api/auth/login")
+      .set("Cookie", cookies)
+      .set("X-CSRF-Token", csrfToken)
       .send({ username: "testuser", password: "123456" });
     expect(res.statusCode).toBe(200);
     expect(res.body.user).toBeDefined();
@@ -31,16 +41,34 @@ describe("API /auth/login", () => {
   });
 
   it("Đăng nhập thất bại với username sai", async () => {
+    const getRes = await request(app).get("/api/auth/me");
+    const cookies = getRes.headers["set-cookie"];
+    const xsrfCookie = cookies.find((c) => c.startsWith("XSRF-TOKEN"));
+    const csrfToken = xsrfCookie
+      ? xsrfCookie.split(";")[0].split("=")[1]
+      : null;
+
     const res = await request(app)
       .post("/api/auth/login")
+      .set("Cookie", cookies)
+      .set("X-CSRF-Token", csrfToken)
       .send({ username: "wronguser", password: "123456" });
     expect(res.statusCode).toBe(401);
     expect(res.body.error).toBe("Invalid credentials");
   });
 
   it("Đăng nhập thất bại với password sai", async () => {
+    const getRes = await request(app).get("/api/auth/me");
+    const cookies = getRes.headers["set-cookie"];
+    const xsrfCookie = cookies.find((c) => c.startsWith("XSRF-TOKEN"));
+    const csrfToken = xsrfCookie
+      ? xsrfCookie.split(";")[0].split("=")[1]
+      : null;
+
     const res = await request(app)
       .post("/api/auth/login")
+      .set("Cookie", cookies)
+      .set("X-CSRF-Token", csrfToken)
       .send({ username: "testuser", password: "wrongpass" });
     expect(res.statusCode).toBe(401);
     expect(res.body.error).toBe("Invalid credentials");

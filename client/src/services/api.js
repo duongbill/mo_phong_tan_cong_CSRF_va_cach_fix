@@ -26,7 +26,7 @@ const getCsrfToken = () => {
 api.interceptors.request.use((config) => {
   const token = getCsrfToken();
   if (token) {
-    config.headers["X-XSRF-TOKEN"] = token;
+    config.headers["X-CSRF-Token"] = token; // Đúng chuẩn server yêu cầu
   }
   return config;
 });

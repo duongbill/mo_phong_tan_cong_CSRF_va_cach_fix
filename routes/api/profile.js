@@ -18,7 +18,17 @@ router.get("/", async (req, res) => {
 });
 
 // Update user profile
-router.put("/", async (req, res) => {
+// Fix 3: Yêu cầu X-CSRF-Token cho các request thay đổi dữ liệu
+function requireCsrfToken(req, res, next) {
+  const token = req.headers["x-csrf-token"];
+  if (!token || token !== req.session.csrfToken) {
+    return res.status(403).json({ error: "Invalid or missing CSRF token" });
+  }
+  next();
+}
+
+// Fix 1: Chỉ cho phép PUT để cập nhật dữ liệu
+router.put("/", requireCsrfToken, async (req, res) => {
   try {
     const { username, email, bio } = req.body;
 
@@ -55,21 +65,7 @@ router.put("/", async (req, res) => {
 });
 
 // === LỖ HỔNG CSRF DEMO ===
-router.get("/update-bio", async (req, res) => {
-  try {
-    const newBio = req.query.bio || "Đã bị hack!";
-    const user = await User.findByIdAndUpdate(
-      req.session.userId,
-      { bio: newBio },
-      { new: true }
-    );
-    res.send(
-      `<h1>Cập nhật thành công!</h1><p>Bio mới của bạn là: ${user.bio}</p>`
-    );
-  } catch (err) {
-    res.status(500).send("Lỗi server");
-  }
-});
+// Đã loại bỏ GET thay đổi dữ liệu (Fix 1)
 // === KẾT THÚC LỖ HỔNG ===
 
 module.exports = router;
