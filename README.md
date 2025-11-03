@@ -42,17 +42,6 @@ csrf-sample-app/
 - Node.js >= 18
 - MongoDB >= 5
 
-### Cách import database
-
-- Sử dụng lệnh mongodump/mongorestore để import dữ liệu mẫu:
-  ```
-  mongorestore --db csrf_app
-  ```
-
-### Cách cấu hình kết nối DB
-
-- Sửa file `config/database.js` nếu cần thay đổi URL MongoDB.
-
 ### Lệnh chạy hệ thống
 
 ```bash
