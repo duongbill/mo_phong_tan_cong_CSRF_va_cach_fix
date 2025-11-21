@@ -9,6 +9,10 @@ import Profile from './components/Profile';
 import Reviews from './components/Reviews';
 import MovieGrid from './components/MovieGrid';
 import ProtectedRoute from './components/ProtectedRoute';
+import MovieDetail from './components/MovieDetail/MovieDetail';
+import NewsPage from './components/News/NewsPage';
+import NewsDetail from './components/News/NewsDetail';
+import CategoryPage from './components/News/CategoryPage';
 
 const theme = createTheme({
   palette: {
@@ -125,7 +129,7 @@ function App() {
             <Box sx={{ flex: 1 }}>
               <Routes>
                 <Route path="/" element={<MovieGrid />} />
-                <Route path="/movies" element={<MovieGrid />} />
+                <Route path="/movies" element={<MovieDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/reviews" element={<Reviews />} />
@@ -137,6 +141,10 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route path="/movie/:movieId" element={<MovieDetail />} />
+                <Route path="/news" element={<NewsPage />} />
+                <Route path="/news/category/:categoryId" element={<CategoryPage />} />
+                <Route path="/news/:id" element={<NewsDetail />} />
               </Routes>
             </Box>
             <Footer />

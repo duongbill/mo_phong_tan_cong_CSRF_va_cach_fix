@@ -76,17 +76,17 @@ const Navbar = () => {
                   '&:hover': { color: 'primary.main' }
                 }}
               >
-                Lịch chiếu
+                Phim đang chiếu
               </Button>
               <Button
                 color="inherit"
-                onClick={() => navigate('/cinemas')}
+                onClick={() => navigate('/news')}
                 sx={{ 
                   color: 'text.primary',
                   '&:hover': { color: 'primary.main' }
                 }}
               >
-                Rạp
+                Tin tức  
               </Button>
               <Button
                 color="inherit"
@@ -96,7 +96,7 @@ const Navbar = () => {
                   '&:hover': { color: 'primary.main' }
                 }}
               >
-                Tin tức
+                Giới thiệu
               </Button>
             </Box>
           </Box>

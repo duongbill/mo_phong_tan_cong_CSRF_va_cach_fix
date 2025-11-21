@@ -15,6 +15,7 @@ const { csrfProtection } = require("./middleware/auth");
 const authApiRoutes = require("./routes/api/auth");
 const reviewApiRoutes = require("./routes/api/reviews");
 const profileApiRoutes = require("./routes/api/profile");
+const moviesRouter = require("./routes/api/movie");
 const { apiAuth } = require("./middleware/apiAuth"); // Import apiAuth tại đây
 
 const port = 3000;
@@ -25,6 +26,7 @@ const { connectDB } = require("./config/database");
 // Import models
 const User = require("./models/User");
 const Review = require("./models/Review");
+const Movie = require("./models/Movie");
 
 // View engine setup
 app.set("views", "./templates");
@@ -102,6 +104,7 @@ apiRouter.use("/auth", authApiRoutes);
 //    Áp dụng middleware apiAuth TRỰC TIẾP
 apiRouter.use("/profile", apiAuth, profileApiRoutes);
 apiRouter.use("/reviews", apiAuth, reviewApiRoutes);
+apiRouter.use("/movies", apiAuth, moviesRouter);
 
 // Mount API router
 app.use("/api", apiRouter);
