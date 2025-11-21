@@ -8,7 +8,9 @@
     "start-attacker": "node attacker-server.js",
     "client": "cd client && vite",
     "build": "cd client && vite build",
-    "dev": "concurrently \"npm run start\" \"npm run client\"",
+    "dev": "concurrently \"npm start\" \"npm run attacker\" \"cd client && npm run dev\"",
+    "seed": "node scripts/seedMovies.js",
+    "seed:watch": "nodemon scripts/seedMovies.js",
     "test": "jest --detectOpenHandles",
     "test:auth": "jest tests/auth.test.js --detectOpenHandles",
     "test:integration": "jest tests/integration.test.js --detectOpenHandles --runInBand"

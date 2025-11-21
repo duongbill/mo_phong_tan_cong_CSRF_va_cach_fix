@@ -86,3 +86,19 @@ export const profileService = {
     return response.data;
   },
 };
+
+export const movieService = {
+  getMovies: async () => {
+    const response = await api.get("/movies");
+    return response.data;
+  },
+  getMovieById: async (id) => {
+    const response = await api.get(`/movies/${id}`);
+    return response.data;
+  },
+  getSimilarMovies: async (id) => {
+    const response = await api.get(`/movies/${id}/similar`);
+    return response.data;
+  },
+};
+export default api;
