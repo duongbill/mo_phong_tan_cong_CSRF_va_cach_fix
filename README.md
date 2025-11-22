@@ -72,9 +72,9 @@ npm run dev
   - Chỉ cho phép thay đổi dữ liệu qua các phương thức an toàn
 
 - Ảnh minh họa giao diện:
+ ![Giao diện demo](10.jpg)
   ![Giao diện demo](11.jpg)
   ![Giao diện demo](12.jpg)
-  ![Giao diện demo](13.jpg)
   ![Giao diện demo](14.jpg)
 
 
