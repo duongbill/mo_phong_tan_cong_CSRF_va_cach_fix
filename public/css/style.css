@@ -1,0 +1,60 @@
+body {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.like-btn {
+    transition: all 0.3s ease;
+}
+
+.like-btn:hover {
+    transform: scale(1.1);
+}
+
+.rating {
+    font-size: 0.9rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.review-form .rating-input {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.review-form .rating-input input[type="radio"] {
+    display: none;
+}
+
+.review-form .rating-input label {
+    color: #ddd;
+    font-size: 1.5rem;
+    padding: 0 0.1rem;
+    cursor: pointer;
+}
+
+.review-form .rating-input input[type="radio"]:checked ~ label {
+    color: #ffd700;
+}
