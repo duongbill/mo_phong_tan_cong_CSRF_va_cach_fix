@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📚 Demo CSRF Attack - Giáo Dục</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 50px 40px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .status-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .status-box strong {
+            color: #2e7d32;
+            font-size: 1.1em;
+        }
+
+        .status-box p {
+            color: #558b2f;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .info-section {
+            margin: 30px 0;
+        }
+
+        .info-section h2 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-content {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .info-content p {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .tips {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .tips strong {
+            color: #856404;
+        }
+
+        .tips p {
+            color: #856404;
+            margin-top: 8px;
+            font-size: 0.95em;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .success-checkmark {
+            color: #4caf50;
+            margin-right: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">📚</div>
+            <h1>Demo CSRF Attack</h1>
+            <p class="subtitle">Bài học về Bảo mật Web</p>
+        </div>
+
+        <div class="status-box">
+            <strong>✅ Tấn Công CSRF Đã Được Thực Hiện</strong>
+            <p>
+                Trang này giới thiệu cách các cuộc tấn công CSRF hoạt động.
+                Đây là một <span class="highlight">demo giáo dục</span> để giúp bạn hiểu rõ hơn về lỗ hổng bảo mật.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <h2>🎯 CSRF Attack là gì?</h2>
+            <div class="info-content">
+                <p>
+                    <strong>CSRF (Cross-Site Request Forgery)</strong> là một cuộc tấn công an toàn web 
+                    nơi kẻ tấn công lừa người dùng thực hiện những hành động không mong muốn trên một 
+                    trang web khác mà họ đang đăng nhập.
+                </p>
+                <p>
+                    Ví dụ: Khi bạn đăng nhập vào tài khoản Facebook và sau đó truy cập một trang web khác, 
+                    trang web đó có thể gửi một request tới Facebook để thay đổi thông tin tài khoản của bạn 
+                    mà bạn không hay biết.
+                </p>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>⚡ Phương Pháp Tấn Công</h2>
+            <div class="info-content">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>GET Request Attack</strong><br>
+                        Sử dụng thẻ <code class="highlight">&lt;img&gt;</code> hoặc 
+                        <code class="highlight">&lt;link&gt;</code> để gửi request tới server
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>POST Request Attack</strong><br>
+                        Sử dụng form HTML ẩn để tự động gửi dữ liệu
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>AJAX Attack</strong><br>
+                        Gửi request qua JavaScript (thường bị CORS chặn)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <strong>💡 Làm Sao Để Bảo Vệ?</strong>
+            <p>
+                ✓ Sử dụng CSRF Token trong mỗi form<br>
+                ✓ Kiểm tra Origin header<br>
+                ✓ Sử dụng SameSite Cookie attribute<br>
+                ✓ Thực hiện XSS protection<br>
+                ✓ Luôn đăng xuất khi xong
+            </p>
+        </div>
+
+        <div class="info-section">
+            <h2>🔍 Kiểm Tra Kết Quả</h2>
+            <div class="info-content">
+                <p>Để xem kết quả tấn công, hãy:</p>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Quay lại ứng dụng chính</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Click vào trang <strong>Profile</strong></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        Kiểm tra field <strong>Bio</strong> để xem nếu nó đã được thay đổi
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <strong>📝 Ghi Chú:</strong>
+            <p>
+                Nếu bạn có <span class="highlight">CSRF_PROTECTION=true</span> trong .env, 
+                tấn công sẽ không thành công (đó là điểm tốt!).<br>
+                Nếu có <span class="highlight">CSRF_PROTECTION=false</span>, 
+                bạn sẽ thấy thay đổi trong Profile.
+            </p>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="goToAttacker()">
+                🎯 Xem Chi Tiết Attack
+            </button>
+            <button class="btn btn-secondary" onclick="openConsole()">
+                🖥️ Mở Console (F12)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function goToAttacker() {
+            // Mở attacker.html trong tab mới
+            window.open('http://localhost:8080/attacker.html', '_blank');
+        }
+
+        function openConsole() {
+            console.log('%c=== CSRF Attack Demo ===', 'color: blue; font-size: 16px; font-weight: bold;');
+            console.log('%cTấn công CSRF đã được gửi tới server!', 'color: green; font-size: 14px;');
+            console.log('Kiểm tra mạng trong DevTools -> Network tab để xem requests');
+            console.log('Quay lại Profile để xem kết quả');
+        }
+
+        // Mở console khi trang load
+        window.addEventListener('load', function() {
+            console.log('%c📚 Demo CSRF Attack - Giáo Dục', 'color: purple; font-size: 18px; font-weight: bold;');
+            console.log('%cTrang này là một phần của dự án học tập về bảo mật web', 'color: #666;');
+        });
+    </script>
+</body>
+</html>

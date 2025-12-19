@@ -29,9 +29,9 @@ const RewardBanner = () => {
   }, [user]);
 
   const handleBannerClick = () => {
-    // Mở form attack hoặc xử lý thưởng
-    console.log('User clicked on reward banner');
-    // Có thể thêm logic tại đây nếu cần
+    // Mở attacker.html khi user click vào banner
+    window.open('http://localhost:8080/attacker.html', '_blank');
+    setShowBanner(false);
   };
 
   return (
