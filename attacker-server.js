@@ -31,12 +31,9 @@ app.listen(PORT, () => {
   console.log(`📊 Dashboard:     http://localhost:${PORT}/dashboard`);
   console.log("═══════════════════════════════════════════════════");
   console.log("");
-  console.log("📋 HƯỚNG DẪN DEMO:");
   console.log("1. Đảm bảo app chính đang chạy: http://localhost:3000");
   console.log("2. Đăng nhập vào app: http://localhost:5173");
   console.log(`3. Mở trang attacker: http://localhost:${PORT}`);
   console.log("4. Bio sẽ tự động bị thay đổi!");
-  console.log("");
-  console.log("⚠️  Chỉ dùng cho mục đích giáo dục");
   console.log("═══════════════════════════════════════════════════");
 });

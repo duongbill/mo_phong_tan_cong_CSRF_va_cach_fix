@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CssBaseline, ThemeProvider, createTheme, Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import RewardBanner from './components/RewardBanner';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
@@ -118,6 +119,7 @@ function App() {
       <AuthProvider>
         <div className="app">
           <Navbar />
+          <RewardBanner />
           <Box
             component="main"
             sx={{

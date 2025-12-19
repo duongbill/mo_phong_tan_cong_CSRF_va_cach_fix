@@ -285,4 +285,4 @@ export const updateBio = async (bio) => {
 
 ---
 
-**Ghi chú**: Demo này chỉ dùng cho mục đích giáo dục. Không sử dụng kỹ thuật này để tấn công hệ thống thực tế.
+**Ghi chú**: Demo này . Không sử dụng kỹ thuật này để tấn công hệ thống thực tế.
