@@ -33,7 +33,7 @@ const Reviews = () => {
       const data = await reviewService.getReviews();
       setReviews(data);
     } catch (error) {
-      setError('Failed to load reviews');
+      setError('Không thể tải đánh giá');
     }
   };
 
@@ -47,16 +47,16 @@ const Reviews = () => {
         await reviewService.updateReview(editingReview._id, {
           content: newReview,
         });
-        setSuccess('Review updated successfully');
+        setSuccess('Đánh giá được cập nhật thành công');
         setEditingReview(null);
       } else {
         await reviewService.createReview({ content: newReview });
-        setSuccess('Review posted successfully');
+        setSuccess('Đánh giá được đăng thành công');
       }
       setNewReview('');
       fetchReviews();
     } catch (error) {
-      setError(error.response?.data?.message || 'Failed to save review');
+      setError(error.response?.data?.message || 'Không thể lưu đánh giá');
     }
   };
 
@@ -70,10 +70,10 @@ const Reviews = () => {
   const handleDelete = async (reviewId) => {
     try {
       await reviewService.deleteReview(reviewId);
-      setSuccess('Review deleted successfully');
+      setSuccess('Đánh giá được xóa thành công');
       fetchReviews();
     } catch (error) {
-      setError('Failed to delete review');
+      setError('Không thể xóa đánh giá');
     }
   };
 
@@ -88,7 +88,7 @@ const Reviews = () => {
     <Container maxWidth="md">
       <Box sx={{ mt: 4 }}>
         <Typography variant="h4" gutterBottom>
-          Reviews
+          Đánh Giá
         </Typography>
 
         {error && (
@@ -110,7 +110,7 @@ const Reviews = () => {
               multiline
               rows={3}
               variant="outlined"
-              placeholder="Write your review..."
+              placeholder="Viết đánh giá của bạn..."
               value={newReview}
               onChange={(e) => setNewReview(e.target.value)}
               required
@@ -122,14 +122,14 @@ const Reviews = () => {
                 color="primary"
                 sx={{ mr: 1 }}
               >
-                {editingReview ? 'Update Review' : 'Post Review'}
+                {editingReview ? 'Cập Nhật Đánh Giá' : 'Đăng Đánh Giá'}
               </Button>
               {editingReview && (
                 <Button
                   onClick={handleCancel}
                   variant="outlined"
                 >
-                  Cancel
+                  Hủy
                 </Button>
               )}
             </Box>

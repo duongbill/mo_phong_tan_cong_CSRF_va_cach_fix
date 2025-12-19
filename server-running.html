@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ CSRF Attack Demo - Success</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 100px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        h1 {
+            color: #27ae60;
+            margin: 20px 0;
+            font-size: 2.5em;
+        }
+        .message {
+            font-size: 1.2em;
+            color: #333;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+        .url-box {
+            background: #f8f9fa;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .button {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+        .steps {
+            text-align: left;
+            background: #e8f8f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .steps h3 {
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        .steps ol {
+            margin-left: 20px;
+        }
+        .steps li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .info {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h1>Attacker Server Running!</h1>
+        
+        <div class="message">
+            <p><strong>Server đang chạy thành công tại:</strong></p>
+        </div>
+        
+        <div class="url-box">
+            <div style="margin: 10px 0;">
+                📡 <strong>Attacker Page:</strong> http://localhost:8080
+            </div>
+            <div style="margin: 10px 0;">
+                📊 <strong>Dashboard:</strong> http://localhost:8080/dashboard
+            </div>
+        </div>
+
+        <div class="steps">
+            <h3>🎯 Các Bước Demo CSRF:</h3>
+            <ol>
+                <li><strong>Đảm bảo app chính đang chạy:</strong> http://localhost:3000 & http://localhost:5173</li>
+                <li><strong>Đăng nhập vào ứng dụng:</strong> Tại http://localhost:5173</li>
+                <li><strong>Mở trang attacker:</strong> 
+                    <a href="http://localhost:8080" target="_blank" class="button">
+                        🚀 Mở Attacker Page
+                    </a>
+                </li>
+                <li><strong>Kiểm tra kết quả:</strong> Quay lại Profile để xem Bio đã bị thay đổi</li>
+            </ol>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <a href="http://localhost:8080" target="_blank" class="button">
+                🎭 Attacker Page
+            </a>
+            <a href="http://localhost:8080/dashboard" target="_blank" class="button">
+                📊 Dashboard
+            </a>
+            <a href="http://localhost:5173" target="_blank" class="button">
+                🏠 Main App
+            </a>
+        </div>
+
+        <div class="info">
+            <strong>⚠️ Lưu ý quan trọng:</strong><br>
+            - Phải dùng <code>http://localhost:8080</code> thay vì <code>file://</code><br>
+            - Cookie chỉ được gửi khi request từ HTTP protocol<br>
+            - Đây là demo giáo dục, không tấn công hệ thống thực tế
+        </div>
+
+        <div style="margin-top: 30px; color: #666;">
+            <small>
+                Để dừng server, nhấn <kbd>Ctrl+C</kbd> trong terminal<br>
+                Đọc <strong>CSRF_QUICKSTART.md</strong> để biết thêm chi tiết
+            </small>
+        </div>
+    </div>
+
+    <script>
+        console.log('%c🔥 CSRF Attacker Server Ready!', 'color: green; font-size: 20px; font-weight: bold;');
+        console.log('Attacker Page: http://localhost:8080');
+        console.log('Dashboard: http://localhost:8080/dashboard');
+    </script>
+</body>
+</html>

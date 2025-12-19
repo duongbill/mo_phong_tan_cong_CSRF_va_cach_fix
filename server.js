@@ -1,5 +1,9 @@
 // server.js (PHIÊN BẢN ĐÃ SỬA)
 
+// Load environment variables
+require("dotenv").config();
+console.log(`[INIT] CSRF_PROTECTION is set to: "${process.env.CSRF_PROTECTION}"`);
+
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -29,7 +33,7 @@ const Review = require("./models/Review");
 const Movie = require("./models/Movie");
 
 // View engine setup
-app.set("views", "./templates");
+app.set("views", "./views");
 app.set("view engine", "ejs");
 
 // Middleware
@@ -40,6 +44,7 @@ app.use(
         "http://localhost:5173",
         "http://localhost:5174",
         "http://localhost:3000",
+        "http://localhost:8080", // Attacker server
       ];
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
@@ -49,14 +54,29 @@ app.use(
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-CSRF-Token",
+      "x-xsrf-token",
+    ],
     exposedHeaders: ["set-cookie"],
   })
 );
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "client/dist")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Logger (Sau body-parser để thấy body)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  if (req.method !== "GET") {
+    console.log("Body:", JSON.stringify(req.body));
+  }
+  next();
+});
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "client/dist")));
 app.use(
   session({
     secret: "my-secret-key",
@@ -66,7 +86,9 @@ app.use(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      // SameSite: 'strict' khi CSRF_PROTECTION=true để chặn CSRF
+      // SameSite: 'lax' khi CSRF_PROTECTION=false để demo lỗ hổng
+      sameSite: process.env.CSRF_PROTECTION === "true" ? "strict" : "lax",
     },
   })
 );
@@ -99,12 +121,23 @@ const apiRouter = express.Router();
 
 // 1. Các route CÔNG KHAI (public) đặt TRƯỚC
 apiRouter.use("/auth", authApiRoutes);
+apiRouter.use("/movies", moviesRouter); // Movies là public để người dùng có thể duyệt phim
 
-// 2. Các route RIÊNG TƯ (private) đặt SAU
-//    Áp dụng middleware apiAuth TRỰC TIẾP
+// 2. CSRF Token endpoint - Client cần lấy token này
+apiRouter.get("/csrf-token", (req, res) => {
+  // Tạo CSRF token nếu chưa có
+  if (!req.session.csrfToken) {
+    req.session.csrfToken =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
+  }
+  res.json({ csrfToken: req.session.csrfToken });
+});
+
+// 3. Các route RIÊNG TƯ (private) đặt SAU
+//    Áp dụng middleware apiAuth TRỰC TIẾP
 apiRouter.use("/profile", apiAuth, profileApiRoutes);
 apiRouter.use("/reviews", apiAuth, reviewApiRoutes);
-apiRouter.use("/movies", apiAuth, moviesRouter);
 
 // Mount API router
 app.use("/api", apiRouter);

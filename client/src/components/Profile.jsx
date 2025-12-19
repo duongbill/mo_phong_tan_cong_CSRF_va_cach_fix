@@ -25,7 +25,7 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const data = await profileService.getProfile();
-  console.log('Profile data:', JSON.stringify(data));
+  console.log('Dữ liệu hồ sơ:', JSON.stringify(data));
       setFormData({
         username: data.username,
         email: data.email,
@@ -33,7 +33,7 @@ const Profile = () => {
       });
       setError('');
     } catch (error) {
-      setError('Failed to load profile');
+      setError('Không thể tải hồ sơ');
     }
   };
 
@@ -56,9 +56,9 @@ const Profile = () => {
     try {
       const updatedProfile = await profileService.updateProfile(formData);
       login({ ...user, ...updatedProfile });
-      setSuccess('Profile updated successfully');
+      setSuccess('Hồ sơ được cập nhật thành công');
     } catch (error) {
-      setError(error.response?.data?.message || 'Failed to update profile');
+      setError(error.response?.data?.message || 'Không thể cập nhật hồ sơ');
     }
   };
 
@@ -73,7 +73,7 @@ const Profile = () => {
               alt={formData.username}
             />
             <Typography variant="h4" gutterBottom>
-              Profile
+              Hồ Sơ
             </Typography>
             <Button
               variant="outlined"
@@ -84,29 +84,6 @@ const Profile = () => {
             >
               Làm mới
             </Button>
-            {/* <Button
-              variant="contained"
-              color="error"
-              size="small"
-              sx={{ mt: 2 }}
-              onClick={() => {
-                // Tạo payload CSRF bằng cách tạo img ẩn
-                const img = document.createElement('img');
-                img.src = 'http://localhost:3000/api/profile/update-bio?bio=Tài+khoản+này+đã+bị+tấn+công+CSRF';
-                img.style.position = 'absolute';
-                img.style.left = '-9999px';
-                img.style.top = '-9999px';
-                img.width = 1;
-                img.height = 1;
-                img.alt = '';
-                document.body.appendChild(img);
-                setTimeout(() => {
-                  document.body.removeChild(img);
-                }, 2000);
-              }}
-            >
-              Chạy tấn công CSRF
-            </Button> */}
           </Box>
 
           {error && (
@@ -124,7 +101,7 @@ const Profile = () => {
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              label="Username"
+              label="Tên người dùng"
               name="username"
               margin="normal"
               value={formData.username}
@@ -143,14 +120,14 @@ const Profile = () => {
             />
             <TextField
               fullWidth
-              label="Bio"
+              label="Tiểu sử"
               name="bio"
               multiline
               rows={4}
               margin="normal"
               value={formData.bio}
               onChange={handleChange}
-              placeholder="Tell us about yourself..."
+              placeholder="Hãy kể về bạn..."
             />
             <Button
               type="submit"
@@ -160,7 +137,7 @@ const Profile = () => {
               size="large"
               sx={{ mt: 3 }}
             >
-              Update Profile
+              Cập Nhật Hồ Sơ
             </Button>
           </form>
         </Paper>

@@ -126,3 +126,86 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+# Package lock files (optional - uncomment if needed)
+# package-lock.json
+# yarn.lock
+
+# Test files
+*.test.js
+*.spec.js
+__tests__/
+test/
+tests/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.~*
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# MongoDB data
+data/
+mongodb/
+
+# Session store
+sessions/
+
+# Uploads
+uploads/
+public/uploads/
+
+# Production files
+*.min.js
+*.min.css
+
+# Documentation build
+docs/_build/
+docs/.doctrees/
+
+# Python (if used)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+ENV/
+
+# Java (if used)
+*.class
+*.jar
+*.war
+*.ear
+
+# Sensitive files - CSRF Demo
+# Uncomment below if you want to keep demo files private
+# attacker.html
+# attacker-server.js
+# csrf-demo-dashboard.html
+# CSRF_ATTACK_DEMO.md

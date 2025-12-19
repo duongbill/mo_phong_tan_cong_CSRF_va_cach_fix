@@ -32,7 +32,7 @@ export default function Trailer({ videoUrl }) {
         {isYoutubeUrl(videoUrl) ? (
           <iframe
             src={getEmbedUrl(videoUrl)}
-            title="Trailer"
+            title="Trailer Phụ"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -41,7 +41,7 @@ export default function Trailer({ videoUrl }) {
           <video
             controls
             src={videoUrl}
-            title="Trailer"
+            title="Trailer Phụ"
             poster="/poster"
             autoPlay
             playsInline

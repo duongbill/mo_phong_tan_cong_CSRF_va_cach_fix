@@ -5,31 +5,44 @@ const api = axios.create({
   withCredentials: true, // Quan trọng cho CSRF
 });
 
-// Lấy CSRF token từ cookie
-const getCsrfToken = () => {
-  const name = "XSRF-TOKEN";
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== "") {
-    const cookies = document.cookie.split(";");
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === name + "=") {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
+// Lưu CSRF token trong memory
+let csrfToken = null;
+
+// Lấy CSRF token từ server
+const fetchCsrfToken = async () => {
+  try {
+    const response = await axios.get("http://localhost:3000/api/csrf-token", {
+      withCredentials: true,
+    });
+    csrfToken = response.data.csrfToken;
+    return csrfToken;
+  } catch (error) {
+    console.error("Failed to fetch CSRF token:", error);
+    return null;
   }
-  return cookieValue;
 };
 
+// Khởi tạo CSRF token khi app load
+fetchCsrfToken();
+
 // Thêm CSRF token vào header của mỗi request
-api.interceptors.request.use((config) => {
-  const token = getCsrfToken();
-  if (token) {
-    config.headers["X-XSRF-TOKEN"] = token;
+api.interceptors.request.use(async (config) => {
+  // Lấy token mới nếu chưa có
+  if (!csrfToken) {
+    await fetchCsrfToken();
   }
+
+  // Thêm token vào headers cho tất cả request
+  if (csrfToken) {
+    config.headers["X-CSRF-Token"] = csrfToken;
+    config.headers["x-xsrf-token"] = csrfToken;
+  }
+
   return config;
 });
+
+// Export để có thể refresh token khi cần
+export const refreshCsrfToken = fetchCsrfToken;
 
 export const authService = {
   login: async (credentials) => {

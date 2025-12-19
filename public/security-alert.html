@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cảnh Báo Bảo Mật - CSRF Attack Blocked</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            max-width: 580px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .header {
+            background: #2e7d32;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .icon svg {
+            width: 35px;
+            height: 35px;
+            fill: #2e7d32;
+        }
+
+        h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .message {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .details-box {
+            background: #fff3e0;
+            border: 1px solid #ffb74d;
+            border-radius: 4px;
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+
+        .details-title {
+            color: #e65100;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .details-content {
+            color: #5d4037;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .details-content strong {
+            color: #4e342e;
+        }
+
+        .details-content code {
+            background: #ffe0b2;
+            color: #d84315;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 12px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background: #1976d2;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        @media (max-width: 600px) {
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/>
+                </svg>
+            </div>
+            <h1>🌐 Hệ Thống Đã Được Bảo Vệ</h1>
+            <div class="subtitle">Khiên bảo mật CSRF đang hoạt động</div>
+        </div>
+        
+        <div class="content">
+            <div class="message">
+                Hành động của bạn đã được kiểm soát an toàn. Hệ thống bảo mật <strong>CSRF Protection</strong> đã xác thực và ngăn chặn một yêu cầu không hợp lệ từ nguồn lạ để bảo vệ dữ liệu cá nhân của bạn.
+            </div>
+            
+            <div class="details-box" style="background: #e8f5e9; border: 1px solid #a5d6a7;">
+                <div class="details-title" style="color: #2e7d32;">✅ Trạng thái bảo vệ:</div>
+                <div class="details-content" style="color: #1b5e20;">
+                    <strong>Cơ chế:</strong> <code>CSRF Token Validation</code><br>
+                    <strong>Kết quả:</strong> Đã chặn yêu cầu giả mạo thành công.<br>
+                    <strong>An toàn:</strong> Tài khoản của bạn không bị ảnh hưởng.
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <a href="http://localhost:5173" class="btn btn-primary">
+                    Quay lại Trang Chủ
+                </a>
+                <button onclick="window.history.back()" class="btn btn-secondary">
+                    Quay lại
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

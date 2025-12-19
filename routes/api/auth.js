@@ -19,6 +19,7 @@ router.get("/me", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log("Login attempt:", { username });
     const user = await User.findOne({ username });
 
     if (!user || !(await user.comparePassword(password))) {
@@ -27,6 +28,7 @@ router.post("/login", async (req, res) => {
 
     req.session.userId = user._id;
     req.session.username = user.username;
+    req.session.isValid = true; // Thêm flag này
 
     res.json({
       message: "Logged in successfully",
@@ -46,6 +48,7 @@ router.post("/login", async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    console.log("Registration attempt:", { username, email });
 
     // Check for required fields
     if (!username || !email || !password) {
@@ -59,7 +62,8 @@ router.post("/register", async (req, res) => {
     });
 
     if (existingUser) {
-      return res.status(400).json({ error: "Username already exists" });
+      const field = existingUser.username === username ? "Tên người dùng" : "Email";
+      return res.status(400).json({ error: `${field} đã tồn tại` });
     }
 
     const user = await User.create({
@@ -70,6 +74,7 @@ router.post("/register", async (req, res) => {
 
     req.session.userId = user._id;
     req.session.username = user.username;
+    req.session.isValid = true;
 
     res.status(201).json({
       message: "User registered successfully",
@@ -83,10 +88,10 @@ router.post("/register", async (req, res) => {
     console.error("Registration error:", err);
     // Handle validation errors
     if (err.name === "ValidationError") {
+      const messages = Object.values(err.errors).map((e) => e.message);
+      console.log("Validation errors:", messages);
       return res.status(400).json({
-        error: Object.values(err.errors)
-          .map((e) => e.message)
-          .join(", "),
+        error: messages.join(", "),
       });
     }
     res.status(500).json({ error: "Server error" });

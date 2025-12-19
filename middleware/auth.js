@@ -23,7 +23,7 @@ module.exports = {
     // Check CSRF token on POST requests
     if (req.method === "POST") {
       if (req.body._csrf !== req.session.csrfToken) {
-        return res.status(403).send("Invalid CSRF token");
+        return res.redirect("/security-alert.html");
       }
     }
 
