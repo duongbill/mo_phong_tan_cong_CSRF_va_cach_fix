@@ -23,12 +23,9 @@ export default function SimilarMovies({ movies }) {
             <p className="section-eyebrow section-eyebrow--light">Phim tương tự</p>
             <h2>Gợi ý cho bạn</h2>
           </div>
-          <button type="button" className="movie-btn movie-btn--ghost-light">
-            Đặt vé nhanh
-          </button>
         </div>
 
-        <div className="similar-movies__controls">
+        {/* <div className="similar-movies__controls">
           {filters.map((filter, index) => (
             <button
               type="button"
@@ -39,7 +36,7 @@ export default function SimilarMovies({ movies }) {
               <span aria-hidden>▾</span>
             </button>
           ))}
-        </div>
+        </div> */}
 
         <div className="similar-movies__grid">
           {movies.map((movie) => {

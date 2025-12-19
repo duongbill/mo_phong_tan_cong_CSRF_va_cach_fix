@@ -4,7 +4,7 @@ export const newsList = async () => {
   try {
     const movies = await movieService.getMovies();
     return movies.slice(0, 5).map((movie, index) => ({
-      id: movie.id || index + 1,
+      id: String(movie._id || movie.id || (index + 1)),
       title: movie.title,
       author: index % 2 === 0 ? 'Ivy_Trat' : 'Moveek',
       time: `${4 + index} ngày trước`,
@@ -21,7 +21,9 @@ export const newsList = async () => {
 export const getNewsById = async (id) => {
   try {
     const allNews = await newsList();
-    const news = allNews.find((item) => item.id === parseInt(id));
+    // Chuyển cả hai về string để so sánh chính xác, tránh dùng parseInt với MongoDB ID
+    const news = allNews.find((item) => String(item.id) === String(id));
+    console.log(`[DATA] getNewsById(${id}) found:`, news ? news.title : 'NOT FOUND');
     return news || null;
   } catch (error) {
     console.error('Error fetching news by id:', error);

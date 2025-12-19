@@ -13,6 +13,7 @@ import MovieDetail from './components/MovieDetail/MovieDetail';
 import NewsPage from './components/News/NewsPage';
 import NewsDetail from './components/News/NewsDetail';
 import CategoryPage from './components/News/CategoryPage';
+import ComingSoon from './components/ComingSoon';
 
 const theme = createTheme({
   palette: {
@@ -45,7 +46,7 @@ const theme = createTheme({
       letterSpacing: '-0.01em',
     },
     h2: {
-      fontSize: '2rem', 
+      fontSize: '2rem',
       fontWeight: 600,
       letterSpacing: '-0.01em',
     },
@@ -117,10 +118,10 @@ function App() {
       <AuthProvider>
         <div className="app">
           <Navbar />
-          <Box 
-            component="main" 
-            sx={{ 
-              mt: '64px', 
+          <Box
+            component="main"
+            sx={{
+              mt: '64px',
               minHeight: 'calc(100vh - 64px)',
               display: 'flex',
               flexDirection: 'column'
@@ -145,6 +146,7 @@ function App() {
                 <Route path="/news" element={<NewsPage />} />
                 <Route path="/news/category/:categoryId" element={<CategoryPage />} />
                 <Route path="/news/:id" element={<NewsDetail />} />
+                <Route path="/coming-soon" element={<ComingSoon />} />
               </Routes>
             </Box>
             <Footer />

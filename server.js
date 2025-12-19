@@ -2,6 +2,7 @@
 
 // Load environment variables
 require("dotenv").config();
+console.log(`[INIT] CSRF_PROTECTION is set to: "${process.env.CSRF_PROTECTION}"`);
 
 const express = require("express");
 const session = require("express-session");
@@ -32,7 +33,7 @@ const Review = require("./models/Review");
 const Movie = require("./models/Movie");
 
 // View engine setup
-app.set("views", "./templates");
+app.set("views", "./views");
 app.set("view engine", "ejs");
 
 // Middleware
@@ -62,10 +63,20 @@ app.use(
     exposedHeaders: ["set-cookie"],
   })
 );
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "client/dist")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Logger (Sau body-parser để thấy body)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  if (req.method !== "GET") {
+    console.log("Body:", JSON.stringify(req.body));
+  }
+  next();
+});
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "client/dist")));
 app.use(
   session({
     secret: "my-secret-key",

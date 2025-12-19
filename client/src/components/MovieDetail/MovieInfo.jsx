@@ -20,9 +20,6 @@ export default function MovieInfo({ movie }) {
           <p className="section-eyebrow">Nội dung nổi bật</p>
           <h2>Giới thiệu</h2>
         </div>
-        <button type="button" className="movie-btn movie-btn--link">
-          Chia sẻ bạn bè
-        </button>
       </div>
 
       {movie.description && (

@@ -58,7 +58,7 @@ const MovieGrid = () => {
         setMovies(mapped);
         setError(null);
       } catch (err) {
-        console.error('Fetch movies error:', err);
+        console.error('Lỗi tải phim:', err);
         setError('Không thể tải danh sách phim');
       } finally {
         setLoading(false);
@@ -86,9 +86,9 @@ const MovieGrid = () => {
   // Lọc phim theo thể loại đã chọn
   const filteredMovies = useMemo(() => {
     if (!selectedGenre) return movies;
-    return movies.filter((movie) => 
-      movie.genres && 
-      Array.isArray(movie.genres) && 
+    return movies.filter((movie) =>
+      movie.genres &&
+      Array.isArray(movie.genres) &&
       movie.genres.includes(selectedGenre)
     );
   }, [movies, selectedGenre]);
@@ -158,26 +158,13 @@ const MovieGrid = () => {
             variant="contained"
             endIcon={<LocalPlayIcon />}
             sx={{ alignSelf: { xs: 'flex-start', md: 'center' } }}
+            onClick={() => navigate('/coming-soon')}
           >
             Đặt vé nhanh
           </Button>
         </Stack>
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <Button
-            variant="outlined"
-            endIcon={<KeyboardArrowDownIcon />}
-            sx={{
-              borderRadius: 2,
-              textTransform: 'none',
-              fontWeight: 600,
-              color: 'text.primary',
-              borderColor: '#dfe3eb',
-              flex: { xs: '1 1 auto', sm: '0 0 auto' },
-            }}
-          >
-            Phổ biến
-          </Button>
           <Button
             variant={selectedGenre ? "contained" : "outlined"}
             endIcon={<KeyboardArrowDownIcon />}
@@ -204,7 +191,7 @@ const MovieGrid = () => {
               },
             }}
           >
-            <MenuItem 
+            <MenuItem
               onClick={() => handleGenreSelect(null)}
               selected={!selectedGenre}
             >
@@ -220,20 +207,6 @@ const MovieGrid = () => {
               </MenuItem>
             ))}
           </Menu>
-          <Button
-            variant="outlined"
-            endIcon={<KeyboardArrowDownIcon />}
-            sx={{
-              borderRadius: 2,
-              textTransform: 'none',
-              fontWeight: 600,
-              color: 'text.primary',
-              borderColor: '#dfe3eb',
-              flex: { xs: '1 1 auto', sm: '0 0 auto' },
-            }}
-          >
-            Ngôn ngữ
-          </Button>
         </Stack>
       </Box>
 

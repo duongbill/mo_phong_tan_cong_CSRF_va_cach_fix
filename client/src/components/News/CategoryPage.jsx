@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import NewsItem from './NewsItem';
 import { newsList, categories } from './dataNews';
+import './CategoryPage.css';
 
-const heroBackground =
-  'linear-gradient(180deg, rgba(3, 6, 23, 0.95) 0%, rgba(3, 6, 23, 0.80) 50%, rgba(238, 242, 248, 1) 100%), url("https://images.unsplash.com/photo-1505685296765-3a2736de412f?auto=format&fit=crop&w=2000&q=80")';
+// Ảnh nền cao cấp cho trang chuyên mục
+const heroBackground = 'url("https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=2000&q=80")';
 
 export default function CategoryPage() {
   const { categoryId } = useParams();
@@ -16,7 +17,7 @@ export default function CategoryPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Tìm category
+        setLoading(true);
         const foundCategory = categories.find((cat) => cat.id === categoryId);
         if (!foundCategory) {
           navigate('/news');
@@ -24,15 +25,18 @@ export default function CategoryPage() {
         }
         setCategory(foundCategory);
 
-        // Lấy tất cả tin tức và lọc theo category
         const allNews = await newsList();
-        // Vì hiện tại dataNews không có category mapping chính xác,
-        // chúng ta sẽ hiển thị tất cả tin tức hoặc có thể filter theo logic khác
-        setNews(allNews);
+        const filteredNews = allNews.filter(item =>
+          item.category.toLowerCase().includes(foundCategory.title.toLowerCase().split(' ')[0]) ||
+          foundCategory.id === 'news'
+        );
+
+        setNews(filteredNews.length > 0 ? filteredNews : allNews.slice(0, 3));
       } catch (error) {
-        console.error('Error fetching category news:', error);
+        console.error('Lỗi tải tin tức chuyên mục:', error);
       } finally {
         setLoading(false);
+        window.scrollTo(0, 0);
       }
     };
 
@@ -43,90 +47,78 @@ export default function CategoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#eef2f8] flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary-600 border-r-transparent"></div>
-          <p className="mt-4 text-slate-600">Đang tải...</p>
+      <div className="category-page__loading">
+        <div className="news-detail__spinner-box">
+          <div className="news-detail__spinner"></div>
+          <p className="mt-4 text-slate-600 font-medium">Đang chuẩn bị nội dung...</p>
         </div>
       </div>
     );
   }
 
-  if (!category) {
-    return null;
-  }
+  if (!category) return null;
 
   return (
-    <section className="relative min-h-screen bg-[#eef2f8]">
-      {/* Header */}
-      <div className="relative isolate w-full overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-top"
-          style={{
-            backgroundImage: heroBackground,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/60 to-[#eef2f8]" />
-        <div className="relative mx-auto max-w-5xl px-4 py-20 text-center text-white sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-primary-100">
-            Chuyên mục
-          </p>
-          <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">{category.title}</h1>
-          <p className="mx-auto mt-4 max-w-3xl text-base text-slate-100/90 sm:text-lg">
-            {category.description}
+    <section className="category-page">
+      {/* Cinematic Hero */}
+      <div className="category-page__hero">
+        <div className="category-page__hero-background">
+          <div
+            className="category-page__hero-image"
+            style={{ backgroundImage: heroBackground }}
+          />
+          <div className="category-page__hero-overlay" />
+        </div>
+
+        <div className="category-page__hero-content">
+          <p className="category-page__hero-subtitle">Chuyên mục</p>
+          <h1 className="category-page__hero-title">{category.title}</h1>
+          <p className="category-page__hero-description">
+            {category.description} Khám phá những bài viết sâu sắc nhất về chủ đề này tại Smovie.
           </p>
         </div>
       </div>
 
       {/* Breadcrumb */}
-      <div className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-2 text-sm text-slate-600">
-            <Link to="/" className="transition hover:text-primary-600">
-              Trang chủ
-            </Link>
-            <span>/</span>
-            <Link to="/news" className="transition hover:text-primary-600">
-              Tin tức
-            </Link>
-            <span>/</span>
-            <span className="text-slate-400">{category.title}</span>
+      <div className="category-page__breadcrumb-bar">
+        <div className="category-page__breadcrumb-container">
+          <nav className="category-page__breadcrumb">
+            <Link to="/" className="category-page__breadcrumb-link">Trang chủ</Link>
+            <span className="category-page__breadcrumb-separator">/</span>
+            <Link to="/news" className="category-page__breadcrumb-link">Tin tức</Link>
+            <span className="category-page__breadcrumb-separator">/</span>
+            <span className="category-page__breadcrumb-current">{category.title}</span>
           </nav>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative -mt-16 pb-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[32px] border border-white/60 bg-white/95 p-6 shadow-2xl shadow-slate-200/70 ring-1 ring-slate-100/70 backdrop-blur-sm sm:p-8">
-            <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+      {/* Main Stream */}
+      <div className="category-page__content">
+        <div className="category-page__container">
+          <div className="category-page__main-stream">
+            <div className="category-page__header">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.45em] text-primary-500">
-                  {category.title}
-                </p>
-                <h2 className="mt-1 text-2xl font-semibold text-slate-900">
-                  Tất cả bài viết trong chuyên mục
-                </h2>
+                <p className="category-page__header-subtitle">Category</p>
+                <h2 className="category-page__header-title">{category.title}</h2>
               </div>
-              <span className="rounded-full bg-slate-100 px-4 py-1 text-sm font-medium text-slate-600">
+              <div className="category-page__count">
                 {news.length} bài viết
-              </span>
+              </div>
             </div>
 
             {news.length > 0 ? (
-              <div className="space-y-5">
+              <div className="category-page__list">
                 {news.map((item) => (
                   <NewsItem key={item.id} {...item} />
                 ))}
               </div>
             ) : (
-              <div className="py-12 text-center">
-                <p className="text-slate-600">Chưa có bài viết nào trong chuyên mục này.</p>
-                <Link
-                  to="/news"
-                  className="mt-4 inline-flex items-center gap-2 text-primary-600 transition hover:text-primary-700"
-                >
-                  <span>←</span>
+              <div className="category-page__empty">
+                <p className="category-page__empty-text">Chưa có bài viết nào trong chuyên mục này.</p>
+                <Link to="/news" className="category-page__back-link">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform: 'rotate(180deg)' }}>
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                   Quay lại trang tin tức
                 </Link>
               </div>
@@ -137,4 +129,3 @@ export default function CategoryPage() {
     </section>
   );
 }
-

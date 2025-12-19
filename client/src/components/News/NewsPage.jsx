@@ -4,8 +4,8 @@ import CategoryCard from './CategoryCard';
 import { newsList, categories } from './dataNews';
 import './NewsPage.css';
 
-const heroBackground =
-  'linear-gradient(180deg, rgba(3, 6, 23, 0.95) 0%, rgba(3, 6, 23, 0.80) 50%, rgba(238, 242, 248, 1) 100%), url("https://images.unsplash.com/photo-1505685296765-3a2736de412f?auto=format&fit=crop&w=2000&q=80")';
+// Ảnh nền cinematic chất lượng cao, sang trọng (Rạp phim hoặc không gian điện ảnh)
+const heroBackground = 'url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2000&q=80")';
 
 export default function NewsPage() {
   const [news, setNews] = useState([]);
@@ -21,21 +21,33 @@ export default function NewsPage() {
 
   return (
     <section className="news-page">
+      {/* Cinematic Hero với ảnh nền mới và overlay chuyên dụng */}
       <div className="news-page__hero">
-        <div
-          className="news-page__hero-background"
-          style={{
-            backgroundImage: heroBackground,
-          }}
-        />
-        <div className="news-page__hero-overlay" />
+        <div className="news-page__hero-background">
+          <div
+            className="news-page__hero-image"
+            style={{ backgroundImage: heroBackground }}
+          />
+          {/* Overlay tối dần về phía dưới để text trắng nổi bật và tiệp vào nội dung dưới */}
+          <div className="news-page__hero-overlay" />
+        </div>
+
+        <div className="news-page__hero-shapes">
+          <div className="news-page__hero-shape news-page__hero-shape--1" />
+          <div className="news-page__hero-shape news-page__hero-shape--2" />
+        </div>
+
         <div className="news-page__hero-content">
-          <p className="news-page__hero-subtitle">
-            Tin tức điện ảnh Việt Nam & thế giới
-          </p>
-          <h1 className="news-page__hero-title">Tin điện ảnh</h1>
+          <div className="news-page__hero-badge">
+            <span className="news-page__hero-dot" />
+            Spotlight 2026
+          </div>
+          <h1 className="news-page__hero-title">
+            <span>Thế Giới Điện Ảnh</span>
+            <span>Trong Tầm Tay</span>
+          </h1>
           <p className="news-page__hero-description">
-            Cập nhật nhanh những câu chuyện nổi bật, đánh giá và trailer mới nhất của làng điện ảnh.
+            Khám phá những tin tức sốt dẻo, đánh giá chuyên sâu và khoảnh khắc hậu trường chưa từng công bố từ Smovie Studio.
           </p>
         </div>
       </div>
@@ -43,17 +55,16 @@ export default function NewsPage() {
       <div className="news-page__content">
         <div className="news-page__container">
           <div className="news-page__grid">
-            <div className="news-page__main-card">
+            {/* Luồng tin chính */}
+            <div className="news-page__main-stream">
               <div className="news-page__main-header">
-                <div className="news-page__main-header-content">
-                  <p className="news-page__main-label">
-                    Mới nhất
-                  </p>
-                  <h2 className="news-page__main-title">Tin điện ảnh hôm nay</h2>
+                <div>
+                  <p className="news-page__main-label">Hot News</p>
+                  <h2 className="news-page__main-title">Tin điện ảnh mới nhất</h2>
                 </div>
-                <span className="news-page__article-count">
+                <div className="news-page__article-count">
                   {news.length} bài viết
-                </span>
+                </div>
               </div>
 
               <div className="news-page__news-list">
@@ -63,16 +74,19 @@ export default function NewsPage() {
               </div>
             </div>
 
+            {/* Sidebar điều hướng */}
             <aside className="news-page__sidebar">
-              <h3 className="news-page__sidebar-title">Chuyên mục</h3>
-              <p className="news-page__sidebar-description">
-                Khám phá các bài viết theo từng chủ đề yêu thích của bạn.
-              </p>
+              <div className="news-page__sidebar-card">
+                <h3 className="news-page__sidebar-section-title">Chuyên mục</h3>
+                <p className="news-page__sidebar-intro">
+                  Tìm kiếm bài viết theo chủ đề bạn đang quan tâm nhất.
+                </p>
 
-              <div className="news-page__categories-list">
-                {categories.map((cat) => (
-                  <CategoryCard key={cat.id} {...cat} />
-                ))}
+                <div className="news-page__categories-list">
+                  {categories.map((cat) => (
+                    <CategoryCard key={cat.id} {...cat} />
+                  ))}
+                </div>
               </div>
             </aside>
           </div>
@@ -81,4 +95,3 @@ export default function NewsPage() {
     </section>
   );
 }
-

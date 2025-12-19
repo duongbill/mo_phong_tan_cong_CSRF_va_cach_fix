@@ -12,7 +12,7 @@ export default function CastList({ cast }) {
       <div className="section-header">
         <div>
           <p className="section-eyebrow">Dàn diễn viên</p>
-          <h2>Cast & Crew</h2>
+          <h2>Diễn Viên & Êkip</h2>
         </div>
         <button type="button" className="movie-btn movie-btn--link">
           Xem tất cả

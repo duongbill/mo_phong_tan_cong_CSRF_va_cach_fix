@@ -1,9 +1,9 @@
 import React from 'react';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button, 
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
   Container,
   Box,
   Avatar,
@@ -33,7 +33,7 @@ const Navbar = () => {
       await logout();
       navigate('/login');
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error('Đăng xuất thất bại:', error);
     }
     handleClose();
   };
@@ -71,7 +71,7 @@ const Navbar = () => {
               <Button
                 color="inherit"
                 onClick={() => navigate('/movies')}
-                sx={{ 
+                sx={{
                   color: 'text.primary',
                   '&:hover': { color: 'primary.main' }
                 }}
@@ -81,17 +81,17 @@ const Navbar = () => {
               <Button
                 color="inherit"
                 onClick={() => navigate('/news')}
-                sx={{ 
+                sx={{
                   color: 'text.primary',
                   '&:hover': { color: 'primary.main' }
                 }}
               >
-                Tin tức  
+                Tin tức
               </Button>
               <Button
                 color="inherit"
                 onClick={() => navigate('/reviews')}
-                sx={{ 
+                sx={{
                   color: 'text.primary',
                   '&:hover': { color: 'primary.main' }
                 }}
@@ -107,7 +107,7 @@ const Navbar = () => {
                 <IconButton
                   onClick={handleMenu}
                   size="small"
-                  sx={{ 
+                  sx={{
                     ml: 2,
                     border: '1.5px solid',
                     borderColor: 'divider'
@@ -167,7 +167,7 @@ const Navbar = () => {
                 <Button
                   color="inherit"
                   onClick={() => navigate('/login')}
-                  sx={{ 
+                  sx={{
                     color: 'text.primary',
                     '&:hover': { color: 'primary.main' }
                   }}

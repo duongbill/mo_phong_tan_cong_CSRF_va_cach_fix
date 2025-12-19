@@ -16,7 +16,7 @@ export default function MovieHero({ movie }) {
   const ratingPercent = Math.round((rating / 10) * 100);
 
   const handleBooking = () => {
-    navigate(`/booking/${movie._id}`);
+    navigate(`/coming-soon`);
   };
 
   return (
@@ -105,7 +105,7 @@ export default function MovieHero({ movie }) {
             >
               🎫 Đặt vé nhanh
             </button>
-            <button type="button" className="movie-btn movie-btn--ghost">
+            <button type="button" className="movie-btn movie-btn--ghost" onClick={handleBooking}>
               📅 Xem lịch chiếu
             </button>
           </div>

@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
 
   // Nếu user chưa xác định (undefined), show loading
   if (user === undefined) {
-    return <div>Loading...</div>;
+    return <div>Đang tải...</div>;
   }
 
   // Nếu user null (chưa đăng nhập), redirect về login
