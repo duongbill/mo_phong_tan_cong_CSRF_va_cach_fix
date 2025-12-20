@@ -2,9 +2,14 @@
 
 **Họ và Tên:**
 
-- Nguyễn Hải Dương - 22810310241
-- Phạm Ngọc Khánh Duy - 22810310232
-- Vũ Hoàng Anh - 22810310252
+- Nguyễn Hải Dương - 22810310241 : Kiến trúc hệ thống, nghiên
+cứu chuẩn OWASP, tổng
+hợp công nghệ.
+- Phạm Ngọc Khánh Duy - 22810310232: Phân tích bối cảnh an ninh,
+chuyên sâu lỗ hổng CSRF
+- Vũ Hoàng Anh - 22810310252: Phát triển Module
+Vulnerable, cài đặt lớp bảo
+mật và giao diện.
 
 ---
 
